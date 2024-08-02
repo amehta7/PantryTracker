@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Container, Typography, Button } from '@mui/material'
+import { Container, Typography, Button, TextField } from '@mui/material'
 import AddItemForm from '../components/AddItemForm'
 import PantryList from '../components/PantryList'
 import {
@@ -13,6 +13,7 @@ import {
 const Pantry = () => {
   const [items, setItems] = useState([]) // Initialize as an empty array
   const [open, setOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -44,6 +45,10 @@ const Pantry = () => {
     )
   }
 
+  const filteredItems = items.filter((item) =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
   return (
     <div className='min-h-screen bg-gradient-to-br from-teal-100 via-teal-100 to-teal-100 flex items-center justify-center'>
       <Container className='bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full mx-4 md:mx-0'>
@@ -60,6 +65,14 @@ const Pantry = () => {
         >
           Your Pantry
         </Typography>
+        <TextField
+          variant='outlined'
+          label='Search'
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className='mb-4'
+          fullWidth
+        />
 
         <Button
           variant='contained'
@@ -70,7 +83,7 @@ const Pantry = () => {
           Add Item
         </Button>
         <PantryList
-          items={items}
+          items={filteredItems}
           onDelete={handleDeleteItem}
           onUpdate={handleUpdateItem}
         />
