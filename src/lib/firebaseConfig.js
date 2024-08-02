@@ -1,21 +1,19 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
-import { getAuth } from 'firebase/auth'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyDBZUOyE7oFjqgaVVSGA6bz7jCgEIEHCM4',
-  authDomain: 'pantry-tracker-d7f0d.firebaseapp.com',
-  projectId: 'pantry-tracker-d7f0d',
-  storageBucket: 'pantry-tracker-d7f0d.appspot.com',
-  messagingSenderId: '136066186181',
-  appId: '1:136066186181:web:ead58f0d21be28853229ac',
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 }
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
-const auth = getAuth(app)
 
-export { db, auth }
+export { db }
